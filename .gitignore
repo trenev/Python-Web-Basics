@@ -129,5 +129,9 @@ dmypy.json
 .pyre/
 
 
+<<<<<<< HEAD
 
 postgresql
+=======
+postgresql
+>>>>>>> 6bd30e940b0e96726dce4538e97780a23223b449
