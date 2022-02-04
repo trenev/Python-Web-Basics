@@ -4,20 +4,68 @@
 <head>
     <meta charset="UTF-8">
     <title>Tasks manager</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static './css/style.css' %}"/>
+
 </head>
 <body>
-<h1>{{ title }}</h1>
-<ul>
-    {% if tasks %}
-        {% for task in tasks %}
-            <li>
-                {{ task.title }}
-            </li>
-        {% endfor %}
-    {% else %}
-        <h2>No tasks</h2>
-    {% endif %}
-</ul>
+{#<h1>{{ title }}</h1>#}
+{#<ul>#}
+{#    {% if tasks %}#}
+{#        {% for task in tasks %}#}
+{#            <li>#}
+{#                {{ task.title }}#}
+{#            </li>#}
+{#        {% endfor %}#}
+{#    {% else %}#}
+{#        <h2>No tasks</h2>#}
+{#    {% endif %}#}
+{#</ul>#}
+
+<main>
+        <div class="wrapper">
+            <section>
+                <div>
+                    <h1 class="gray">Add Task</h1>
+                </div>
+                <div>
+                    <form action="">
+                        <label for="task">Task</label><br>
+                        <input type="text" id="task" name="task" placeholder="JS Advanced Exam"><br>
+                        <label for="description">Description</label><br>
+                        <textarea id="description" placeholder="Lern DOM, Unit Testing and Classes"></textarea>
+                        <label for="date">Due Date</label><br>
+                        <input type="text" id="date" name="date" placeholder="2020.04.14"><br>
+                        <button id="add">Add</button>
+                    </form>
+                </div>
+            </section>
+
+            <section>
+                <div>
+                    <h1 class="orange">Open</h1>
+                </div>
+                <div>
+
+                </div>
+            </section>
+            <section>
+                <div>
+                    <h1 class="yellow">In Progress</h1>
+                </div>
+                <div id="in-progress">
+
+                </div>
+            </section>
+            <section>
+                <div>
+                    <h1 class="green">Complete</h1>
+                </div>
+                <div>
+
+                </div>
+            </section>
+        </div>
+    </main>
+
 </body>
 </html>

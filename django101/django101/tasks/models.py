@@ -3,11 +3,15 @@ from django.db import models
 # Create your models here.
 
 
-class Task(models.Model):
+class Schedule(models.Model):
     title = models.CharField(
-        max_length=25,
+        max_length=30,
         null=False,
     )
-    text = models.CharField(
-        max_length=50,
+    description = models.CharField(
+        max_length=100,
     )
+    dead_line = models.DateField(
+        auto_now=True,
+    )
+
