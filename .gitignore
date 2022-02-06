@@ -128,10 +128,12 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-
-<<<<<<< HEAD
+# JPEG
+*.jpg
+*.jpeg
+*.jpe
+*.jif
+*.jfif
+*.jfi
 
 postgresql
-=======
-postgresql
->>>>>>> 6bd30e940b0e96726dce4538e97780a23223b449
