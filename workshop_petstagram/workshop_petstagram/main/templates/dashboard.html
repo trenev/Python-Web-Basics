@@ -16,43 +16,27 @@
         <h1 class='text-center'>All Pet Photos</h1>
         <div class="container mb-5">
             <div class="row mb-5">
-{#                {% for photo in pet_photos %}#}
-{#                    {{ photo }}#}
-{#                {% endfor %}#}
 
-                <!-- First Card with Info for the Pet -->
-                <div class="card ml-3 mb-3" style="width: 18rem;">
-                    <!-- Image -->
-                    <img src="https://images.unsplash.com/photo-1623387641168-d9803ddd3f35?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cGV0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                         class="card-img-top" alt="Photo description">
-                    <div class="card-body">
-                        <!-- Info for each pet on the photo -->
-                        <h5 class="card-title">Andrew, age: 3</h5>
-                        <h5 class="card-title">Otto</h5>
-                        <!-- First 30 chars from the description -->
-                        <p class="card-text">This is Andrew the cat, and Ot</p>
-                        <!-- Button to the Photo Details Page -->
-                        <a href="#" class="btn btn-primary">See details</a>
-                    </div>
-                </div>
-                <!-- End First Card -->
+                {% for photo in pet_photos %}
 
-                <!-- Second Card with Info for the Pet -->
-                <div class="card ml-3 mb-3" style="width: 18rem;">
-                    <!-- Image -->
-                    <img src="https://images.unsplash.com/photo-1548767797-d8c844163c4c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8NXx8cGV0c3xlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60"
-                         class="card-img-top" alt="Photo description">
-                    <div class="card-body">
-                        <!-- Info for each pet on the photo -->
-                        <h5 class="card-title">Oz</h5>
-                        <h5 class="card-title">Betty</h5>
-                        <!-- First 30 chars from the description -->
-                        <p class="card-text">My pets</p>
-                        <!-- Button to the Photo Details Page -->
-                        <a href="#" class="btn btn-primary">See details</a>
+                    <div class="card ml-3 mb-3" style="width: 18rem;">
+                        <!-- Image -->
+                        <img src="{{ photo.photo.url }}"
+                             class="card-img-top" alt="Photo description">
+                        <div class="card-body">
+                            {% for pet in photo.tagged_pets.all %}
+                                <h5 class="card-title">{{ pet.name }}{% if pet.date_of_birth %}, age: {{ pet.age }}
+                                {% endif %}</h5>
+                            {% endfor %}
+
+                            <!-- First 30 chars from the description -->
+                            <p class="card-text">{{ photo.description|truncatechars:30 }}</p>
+                            <!-- Button to the Photo Details Page -->
+                            <a href="{% url 'pet photo details' photo.id %}" class="btn btn-primary">See details</a>
+                        </div>
                     </div>
-                </div>
-                <!-- End Second Card -->
+
+                {% endfor %}
 
             </div>
         </div>
@@ -61,3 +45,4 @@
     {% endif %}
 
 {% endblock %}
+

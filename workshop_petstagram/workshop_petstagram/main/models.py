@@ -1,3 +1,5 @@
+import datetime
+
 from django.core.validators import MinLengthValidator
 from django.db import models
 
@@ -91,6 +93,10 @@ class Pet(models.Model):
         on_delete=models.CASCADE,
     )
 
+    @property
+    def age(self):
+        return datetime.datetime.now().year - self.date_of_birth.year
+
     def __str__(self):
         return f'{self.name}'
 
@@ -100,6 +106,7 @@ class Pet(models.Model):
 
 class PetPhoto(models.Model):
     photo = models.ImageField(
+        upload_to='images',
         validators=(
             validate_file_max_size_in_mb,
         )
@@ -122,6 +129,4 @@ class PetPhoto(models.Model):
         default=0,
     )
 
-    # def __str__(self):
-    #     return f'{self.tagged_pets.name}'
 
