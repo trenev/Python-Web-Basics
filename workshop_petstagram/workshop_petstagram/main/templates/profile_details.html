@@ -4,7 +4,7 @@
     <div class="row justify-content-center">
         <div class="d-flex">
             <div class="d-inline p-2 w-50">
-                <img src="{{ profile.picture }}"
+                <img src="{{ profile.picture }}" style="max-width: 500px; max-height: 600px"
                      class="w-50 rounded mx-auto d-block" alt="description">
             </div>
             <div class="d-inline p-2 w-50">
@@ -27,10 +27,10 @@
                     {% endif %}
 
                 </div>
-                <p class="mt-2">Total Images: {{ total_images }}</p>
-                <p class="mt-2">Total Likes: 21</p>
-                <a href="#" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <p class="mt-2">Total Images: {{ total_pet_photos_count }}</p>
+                <p class="mt-2">Total Likes: {{ total_likes_count }}</p>
+                <a href="{% url 'edit profile' %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete profile' %}" class="btn btn-danger">Delete</a>
             </div>
         </div>
     </div>
@@ -47,8 +47,8 @@
                     <p class="mt-2">Age: {{ pet.age }}</p>
                 {% endif %}
 
-                <a href="#" class="btn btn-primary">Edit</a>
-                <a href="#" class="btn btn-danger">Delete</a>
+                <a href="{% url 'edit pet' pet.id %}" class="btn btn-primary">Edit</a>
+                <a href="{% url 'delete pet' pet.id %}" class="btn btn-danger">Delete</a>
             </div>
         {% endfor %}
 

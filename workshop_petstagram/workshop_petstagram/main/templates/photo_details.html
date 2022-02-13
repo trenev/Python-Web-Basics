@@ -23,12 +23,12 @@
             <p class="mt-2">Description: {{ pet_photo.description }}</p>
             <p class="mt-2">Published: {{ pet_photo.publication_date }}</p>
             <!-- Likes Button -->
-            <a href="#"><i class="fa fa-heart-o" style="font-size:32px" aria-hidden="true"></i></a>
+            <a href="{% url 'like pet photo' pet_photo.id %}"><i class="fa fa-heart-o" style="font-size:32px" aria-hidden="true"></i></a>
             <!-- Likes Counter -->
             <p class="mt-2">Likes: {{ pet_photo.likes }}</p>
             <!-- Buttons -->
-            <a href="#" class="btn btn-primary">Edit</a>
-            <a href="#" class="btn btn-danger">Delete</a>
+            <a href="{% url 'edit pet photo' pet_photo.id %}" class="btn btn-primary">Edit</a>
+            <a href="{% url 'delete pet photo' pet_photo.id %}" class="btn btn-danger">Delete</a>
         </div>
     </div>
 

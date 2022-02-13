@@ -1,9 +1,11 @@
 import datetime
+from datetime import date
 
 from django.core.validators import MinLengthValidator
 from django.db import models
 
-from workshop_petstagram.main.validators import validate_only_letters, validate_file_max_size_in_mb
+from workshop_petstagram.main.validators import validate_only_letters, validate_file_max_size_in_mb, validate_min_date, \
+    validate_max_date
 
 
 class Profile(models.Model):
@@ -16,7 +18,7 @@ class Profile(models.Model):
     FEMALE = 'Female'
     DO_NOT_SHOW = 'Do not show'
 
-    GENDERS = [(x, x) for x in (MALE, FEMALE, DO_NOT_SHOW)]
+    GENDERS = [(x, x) for x in (DO_NOT_SHOW, MALE, FEMALE)]
 
     first_name = models.CharField(
         max_length=FIRST_NAME_MAX_LENGTH,
@@ -39,6 +41,10 @@ class Profile(models.Model):
     date_of_birth = models.DateField(
         null=True,
         blank=True,
+        validators=(
+            validate_min_date,
+            validate_max_date,
+        ),
     )
 
     description = models.TextField(
@@ -54,8 +60,9 @@ class Profile(models.Model):
     gender = models.CharField(
         max_length=max(len(x) for x, _ in GENDERS),
         choices=GENDERS,
+        default=DO_NOT_SHOW,
         null=True,
-        blank=True,
+        # blank=True,
     )
 
     def __str__(self):
@@ -86,6 +93,10 @@ class Pet(models.Model):
     date_of_birth = models.DateField(
         null=True,
         blank=True,
+        validators=(
+            validate_min_date,
+            validate_max_date,
+        ),
     )
 
     user_profile = models.ForeignKey(
@@ -95,7 +106,8 @@ class Pet(models.Model):
 
     @property
     def age(self):
-        return datetime.datetime.now().year - self.date_of_birth.year
+        return date.today().year - self.date_of_birth.year
+        # return datetime.datetime.now().year - self.date_of_birth.year
 
     def __str__(self):
         return f'{self.name}'

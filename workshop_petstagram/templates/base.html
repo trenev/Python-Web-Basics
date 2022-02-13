@@ -34,10 +34,10 @@
 
                 {% if not hide_additional_buttons %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add Pet</a>
+                        <a class="nav-link" href="{% url 'add pet' %}">Add Pet</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Add Photo</a>
+                        <a class="nav-link" href="{% url 'add pet photo' %}">Add Photo</a>
                     </li>
                 {% endif %}
 
