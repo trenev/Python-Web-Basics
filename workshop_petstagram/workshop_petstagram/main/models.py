@@ -1,4 +1,3 @@
-import datetime
 from datetime import date
 
 from django.core.validators import MinLengthValidator
@@ -62,7 +61,7 @@ class Profile(models.Model):
         choices=GENDERS,
         default=DO_NOT_SHOW,
         null=True,
-        # blank=True,
+        blank=True,
     )
 
     def __str__(self):
@@ -106,8 +105,9 @@ class Pet(models.Model):
 
     @property
     def age(self):
-        return date.today().year - self.date_of_birth.year
-        # return datetime.datetime.now().year - self.date_of_birth.year
+        today = date.today()
+        born = self.date_of_birth
+        return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
 
     def __str__(self):
         return f'{self.name}'
@@ -124,10 +124,6 @@ class PetPhoto(models.Model):
         )
     )
 
-    tagged_pets = models.ManyToManyField(
-        Pet,
-    )
-
     description = models.TextField(
         null=True,
         blank=True,
@@ -141,4 +137,10 @@ class PetPhoto(models.Model):
         default=0,
     )
 
+    tagged_pets = models.ManyToManyField(
+        Pet,
+    )
+
+    def __str__(self):
+        return f'{[pet.name for pet in self.tagged_pets.all()]}'
 

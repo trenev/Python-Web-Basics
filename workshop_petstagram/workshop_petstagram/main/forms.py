@@ -159,7 +159,6 @@ class AddPetPhotoForm(BootstrapFormMixin, forms.ModelForm):
             'tagged_pets': 'Tag Pets',
         }
         widgets = {
-            'photo': forms.FileInput(),
             'description': forms.Textarea(
                 attrs={
                     'rows': 3,
