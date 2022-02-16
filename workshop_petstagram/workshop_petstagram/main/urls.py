@@ -1,6 +1,6 @@
 from django.urls import path
 
-from workshop_petstagram.main.views.generic import show_home, show_dashboard
+from workshop_petstagram.main.views.generic import show_home, show_dashboard, show_error_page
 from workshop_petstagram.main.views.pet_photos import show_pet_photo_details, add_pet_photo, edit_pet_photo, \
     like_pet_photo, delete_pet_photo
 from workshop_petstagram.main.views.pets import add_pet, edit_pet, delete_pet
@@ -9,6 +9,7 @@ from workshop_petstagram.main.views.profiles import show_profile, create_profile
 urlpatterns = (
     path('', show_home, name='index'),
     path('dashboard/', show_dashboard, name='dashboard'),
+    path('error/', show_error_page, name='error page'),
 
     path('profile/', show_profile, name='profile'),
     path('profile/create/', create_profile, name='create profile'),

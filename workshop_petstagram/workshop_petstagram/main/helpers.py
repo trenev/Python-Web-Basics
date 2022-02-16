@@ -1,4 +1,4 @@
-from workshop_petstagram.main.models import Profile
+from workshop_petstagram.main.models import Profile, PetPhoto
 
 
 def get_profile():
@@ -7,6 +7,16 @@ def get_profile():
         return profiles[0]
 
     return None
+
+
+def get_profile_pet_photos():
+    profile = get_profile()
+    pet_photos = PetPhoto.objects \
+        .prefetch_related('tagged_pets') \
+        .filter(tagged_pets__user_profile=profile) \
+        .distinct()
+
+    return pet_photos
 
 
 class BootstrapFormMixin:

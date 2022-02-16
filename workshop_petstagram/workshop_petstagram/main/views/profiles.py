@@ -3,9 +3,13 @@ from django.shortcuts import render, redirect
 from workshop_petstagram.main.forms import CreateProfileForm, EditProfileForm, DeleteProfileForm
 from workshop_petstagram.main.helpers import get_profile
 from workshop_petstagram.main.models import Pet, PetPhoto, Profile
+from workshop_petstagram.main.templatetags.profiles import has_profile
 
 
 def show_profile(request):
+    if not has_profile():
+        return redirect('error page')
+
     profile = get_profile()
     pets = list(Pet.objects.filter(user_profile=profile))
 
@@ -26,6 +30,9 @@ def show_profile(request):
 
 
 def profile_action(request, form_class, success_url, instance, template_name):
+    if not has_profile():
+        return redirect('error page')
+
     if request.method == 'POST':
         form = form_class(request.POST, instance=instance)
         if form.is_valid():

@@ -1,6 +1,8 @@
+from os import remove
+
 from django import forms
 
-from workshop_petstagram.main.helpers import BootstrapFormMixin, DisabledFieldsFormMixin
+from workshop_petstagram.main.helpers import BootstrapFormMixin, DisabledFieldsFormMixin, get_profile_pet_photos
 from workshop_petstagram.main.models import Profile, PetPhoto, Pet
 
 
@@ -72,7 +74,15 @@ class EditProfileForm(BootstrapFormMixin, forms.ModelForm):
 
 class DeleteProfileForm(forms.ModelForm):
     def save(self, commit=True):
+        pet_photos = get_profile_pet_photos()
+        images_path = []
+        for photo in pet_photos:
+            images_path.append(photo.photo.path)
+            photo.delete()
+
         self.instance.delete()
+        [remove(im_p) for im_p in images_path]
+
         return self.instance
 
     class Meta:

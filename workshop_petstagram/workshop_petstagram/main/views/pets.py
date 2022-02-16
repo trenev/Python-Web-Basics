@@ -3,9 +3,13 @@ from django.shortcuts import render, redirect
 from workshop_petstagram.main.forms import AddPetForm, EditPetForm, DeletePetForm
 from workshop_petstagram.main.helpers import get_profile
 from workshop_petstagram.main.models import Pet
+from workshop_petstagram.main.templatetags.profiles import has_profile
 
 
 def pet_action(request, form_class, success_url, instance, template_name):
+    if not has_profile():
+        return redirect('error page')
+
     if request.method == 'POST':
         form = form_class(request.POST, instance=instance)
         if form.is_valid():

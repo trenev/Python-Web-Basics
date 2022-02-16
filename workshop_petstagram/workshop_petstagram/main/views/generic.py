@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
-from workshop_petstagram.main.helpers import get_profile
-from workshop_petstagram.main.models import PetPhoto
+from workshop_petstagram.main.helpers import get_profile_pet_photos
+from workshop_petstagram.main.templatetags.profiles import has_profile
 
 
 def show_home(request):
@@ -13,14 +13,17 @@ def show_home(request):
 
 
 def show_dashboard(request):
-    profile = get_profile()
-    pet_photos = PetPhoto.objects\
-        .prefetch_related('tagged_pets')\
-        .filter(tagged_pets__user_profile=profile)\
-        .distinct()
+    if not has_profile():
+        return redirect('error page')
+
+    pet_photos = get_profile_pet_photos()
 
     context = {
         'pet_photos': pet_photos,
     }
 
     return render(request, 'dashboard.html', context)
+
+
+def show_error_page(request):
+    return render(request, '401_error.html')
