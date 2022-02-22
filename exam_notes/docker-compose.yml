@@ -1,0 +1,15 @@
+version: '3.4'
+
+services:
+  postgres:
+    container_name: notes_instance
+    image: postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: notes_db
+      POSTGRES_USER: db_admin
+      POSTGRES_PASSWORD: 1123qwer
+    volumes:
+      - ./postgresql:/var/lib/postgresql/data
