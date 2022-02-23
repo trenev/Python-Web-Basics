@@ -1,16 +1,16 @@
 from django.db import models
 
-# Create your models here.
-
 
 class Task(models.Model):
-    OPEN = 1
-    IN_PROGRESS = 2
-    COMPLETE = 3
+    OPEN = 'Open'
+    IN_PROGRESS = 'In progress'
+    COMPLETE = 'Complete'
+
+    STATUSES = [(x, x) for x in (OPEN, IN_PROGRESS, COMPLETE)]
 
     title = models.CharField(
         max_length=30,
-        null=False,
+        verbose_name='Task',
     )
 
     description = models.CharField(
@@ -18,14 +18,10 @@ class Task(models.Model):
     )
 
     dead_line = models.DateField(
-        auto_now_add=True
+        verbose_name='Due Date',
     )
 
-    status = models.IntegerField(
-        choices=(
-            (OPEN, 'Open'),
-            (IN_PROGRESS, 'In progress'),
-            (COMPLETE, 'Complete'),
-        ),
+    status = models.CharField(
+        max_length=max(len(x) for x, _ in STATUSES),
         default=OPEN,
     )

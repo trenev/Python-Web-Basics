@@ -116,7 +116,9 @@ form button {
 }
 
 .orange {
+    text-decoration: none;
     background-color: #ff9f1a;
+    color: white;
 }
 
 .yellow {
@@ -124,11 +126,13 @@ form button {
 }
 
 .green {
+    text-decoration: none;
     background-color: #8acc47;
     color: white;
 }
 
 .red {
+    text-decoration: none;
     background-color: #d93651;
     color: white;
 }
@@ -137,3 +141,4 @@ form button {
     display: flex;
     justify-content: space-between;
 }
+

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Task Manager</title>
-    <link rel="stylesheet" href="{% static './css/style.css' %}"/>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}"/>
 
 </head>
 <body>
@@ -15,13 +15,9 @@
                 <h1 class="gray">Add Task</h1>
             </div>
             <div>
-                <form action="">
-                    <label for="task">Task</label><br>
-                    <input type="text" id="task" name="task" placeholder="JS Advanced Exam"><br>
-                    <label for="description">Description</label><br>
-                    <textarea id="description" placeholder="Lern DOM, Unit Testing and Classes"></textarea>
-                    <label for="date">Due Date</label><br>
-                    <input type="text" id="date" name="date" placeholder="2020.04.14"><br>
+                <form method="post" action="{% url 'index' %}">
+                    {% csrf_token %}
+                    {{ form }}
                     <button id="add">Add</button>
                 </form>
             </div>
@@ -38,8 +34,12 @@
                         <p>Description: {{ task.description }}</p>
                         <p>Due Date: {{ task.dead_line }}</p>
                         <div class="flex">
-                            <button class="green">Start</button>
-                            <button class="red">Delete</button>
+                            <button class="green">
+                                <a class="green" href="{% url 'start task' task.pk %}">Start</a>
+                            </button>
+                            <button class="red">
+                                <a class="red" href="{% url 'delete task' task.pk %}">Delete</a>
+                            </button>
                         </div>
                     </article>
                 {% endfor %}
@@ -57,12 +57,16 @@
                         <p>Description: {{ task.description }}</p>
                         <p>Due Date: {{ task.dead_line }}</p>
                         <div class="flex">
-                            <button class="red">Delete</button>
-                            <button class="orange">Finish</button>
+                            <button class="red">
+                                <a class="red" href="{% url 'delete task' task.pk %}">Delete</a>
+                            </button>
+                            <button class="orange">
+                                <a class="orange" href="{% url 'finish task' task.pk %}">Finish</a>
+                            </button>
                         </div>
                     </article>
                 {% endfor %}
-                
+
             </div>
         </section>
         <section>
