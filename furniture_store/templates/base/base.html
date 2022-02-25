@@ -1,0 +1,43 @@
+{% load static %}
+{% load profiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Furniture</title>
+
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+
+<body>
+{% has_profile as hs %}
+<header>
+    <h1>Furniture Store</h1>
+{#    <h1><a href="/">Furniture Store</a></h1>#}
+    <nav>
+        <a id="catalogLink" href="{% url 'index' %}">Catalogue</a>
+        {% if hs %}
+            <div id="user">
+                <a id="createLink" href="{% url 'create furniture' %}">Create Furniture</a>
+                <a id="profileLink" href="{% url 'show my publications' %}">My Publications</a>
+                <a id="logoutBtn" href="javascript:void(0)">Logout</a>
+            </div>
+        {% else %}
+            <div id="guest">
+                <a id="loginLink" href="{% url 'login user' %}">Login</a>
+                <a id="registerLink" href="{% url 'create user' %}" class="active">Register</a>
+            </div>
+        {% endif %}
+    </nav>
+</header>
+
+{% block page_content %}
+{% endblock %}
+
+<footer class="bottom" >
+    <div>Exercise from JS Applications @SoftUni</div>
+</footer>
+</body>
+</html>
